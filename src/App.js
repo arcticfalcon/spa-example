@@ -1,12 +1,10 @@
-import React from 'react'
-
-import {Admin} from 'convection'
-import { Resource } from 'convection'
-import DevTools from 'mobx-react-devtools'
-import { NavLink, Route, Switch } from 'react-router-dom'
-
-import Menu from 'Menu'
-import { PERSON_RESOURCE, Edit, Browse } from 'Persons'
+import React from "react";
+import {useStrict} from "mobx";
+useStrict(true)
+import {Admin, Resource} from "convection";
+import DevTools from "mobx-react-devtools";
+import Menu from "Menu";
+import {PERSON_RESOURCE, Edit, Browse} from "Persons";
 
 
 

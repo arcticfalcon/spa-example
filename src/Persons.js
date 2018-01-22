@@ -1,71 +1,11 @@
-import React from 'react'
-import { extendObservable, observable, action, computed, useStrict, toJS } from 'mobx'
-import { Form as SForm, Button, Icon } from 'semantic-ui-react'
-
-import store from 'store'
-
-import {links, formatters as F, inputs as I} from 'convection'
-import {Layout, Form, DataBrowser} from 'convection'
+import React from "react";
+import {Form as SForm, Button, Icon} from "semantic-ui-react";
+import store from "store";
+import {links, formatters as F, inputs as I, Layout, Form, DataBrowser, ViewModel, WithModel, Filter} from "convection";
+import PersonService from "./PersonService";
+import Person from "./Person";
 const {ReadLink} = links
-import {ViewModel, ModelValidation, WithModel} from 'convection'
-import {sanitize, initSanitizers, sanitizers} from 'convection'
-import {Filter} from 'convection'
 
-import { Length } from 'class-validator'
-
-useStrict(true)
-
-class Name {
-  @observable first
-  @observable last
-
-  static fromJSON({ first, last }) {
-    const name = new Name()
-    name.first = first
-    name.last = last
-    return name
-  }
-}
-
-class PersonService {
-  static fetch(id) {
-    const response = {
-      data: { name: { first: 'john', last: 'flem' }, status: 'asd', notes: id },
-    }
-
-    return new Promise(resolve => setTimeout(() => resolve(response), 2000))
-  }
-
-  static post(model) {
-    return new Promise(resolve => setTimeout(() => {
-      const persons = store.get('persons') || []
-      persons.push(model)
-      store.set('persons', persons)
-      resolve(model)
-    }, 2000))
-  }
-}
-
-class Person extends ModelValidation {
-  @observable name = {}
-
-  @observable status = ''
-
-  @sanitize(sanitizers.alpha)
-  @Length(10, 20)
-  @observable
-  notes = ''
-
-  constructor() {
-    super()
-    initSanitizers(this)
-  }
-
-  @computed
-  get full() {
-    return `${this.name.first || ''} ${this.name.last || ''} ${this.status || ''}`
-  }
-}
 
 export const PERSON_RESOURCE = 'persons'
 
@@ -136,12 +76,12 @@ export const Browse = () => {
   )
 }
 
-export const BRAND_ACTION = 'brand_action'
-
-export const brandActions = [
-  {
-    name: BRAND_ACTION,
-    path: '/marcas/accion',
-    component: Edit,
-  },
-]
+// export const BRAND_ACTION = 'brand_action'
+//
+// export const brandActions = [
+//   {
+//     name: BRAND_ACTION,
+//     path: '/marcas/accion',
+//     component: Edit,
+//   },
+// ]
